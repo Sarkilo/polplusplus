@@ -33,10 +33,13 @@ int main()
             char* wejscie_konsoli_char = const_cast<char*>(wejscie_konsoli.c_str());
             leksykowanie(wejscie_konsoli_char);
         }
-        ostatnia_komenda = wejscie_konsoli;     //dodac liste ostatnich komend pod strzalka w gore i w dol na podstawie tekstu ktory sie wyswietla po kliknieciu strzalki
-
+        ostatnia_komenda = wejscie_konsoli;     
     }
 
     return 0;
 
 }
+//TODO list
+//dodac liste ostatnich komend pod strzalka w gore i w dol na podstawie tekstu ktory sie wyswietla po kliknieciu strzalki
+//dodac liste w ktorej jest zapisane jaki identyfikator jest na konkretnym miejscu w wejscie_konsoli
+
