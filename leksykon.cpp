@@ -28,6 +28,7 @@
 
 #include <string>
 
+
 class Token {
  public:
   enum class Typ {
@@ -159,6 +160,15 @@ bool czy_cyfra(char c) noexcept {
     default:
       return false;
   }
+}
+
+bool czy_z_ulamkiem_dziesietnym(char c) noexcept {
+    switch(c) {
+        case '.':
+            return true;
+        default:
+            return false;
+    }
 }
 
 bool czy_znak_identyfikatora(char c) noexcept {
@@ -361,6 +371,11 @@ Token Leksykon::nastepny() noexcept {
   }
 }
 
+#include <iostream>
+#include <list>
+
+std::list<Token::Typ> lista_elementow_w_leksykonie = {};
+
 Token Leksykon::identyfikator() noexcept {
   const char* start = m_beg;
   zdobadz();
@@ -371,7 +386,7 @@ Token Leksykon::identyfikator() noexcept {
 Token Leksykon::liczba() noexcept {
   const char* start = m_beg;
   zdobadz();
-  while (czy_cyfra(zerknij())) zdobadz();
+  while (czy_cyfra(zerknij()) || czy_z_ulamkiem_dziesietnym(zerknij())) zdobadz();
   return Token(Token::Typ::Liczba, start, m_beg);
 }
 
@@ -383,8 +398,7 @@ Token Leksykon::ukosnik_lub_komentarz() noexcept {
     start = m_beg;
     while (zerknij() != '\0') {
       if (zdobadz() == '\n') {
-        return Token(Token::Typ::Komentarz, start,
-                     std::distance(start, m_beg) - 1);
+        return Token(Token::Typ::Komentarz, start, std::distance(start, m_beg) - 1);
       }
     }
     return Token(Token::Typ::Nieoczekiwany, m_beg, 1);
@@ -394,7 +408,6 @@ Token Leksykon::ukosnik_lub_komentarz() noexcept {
 }
 
 #include <iomanip>
-#include <iostream>
 
 
 std::ostream& operator<<(std::ostream& os, const Token::Typ& typ) {
@@ -408,6 +421,8 @@ std::ostream& operator<<(std::ostream& os, const Token::Typ& typ) {
   };
   return os << names[static_cast<int>(typ)];
 }
+
+
 
 int leksykowanie(const char* kod) {
   // auto code =
@@ -434,8 +449,8 @@ int leksykowanie(const char* kod) {
   for (auto token = lex.nastepny();
        not token.jest(Token::Typ::Koniec);
        token = lex.nastepny()) {
-    std::cout << std::setw(28) << token.typ() << " |" << token.leksem()
-              << "|\n";
+    lista_elementow_w_leksykonie.push_front(token.typ());
+    std::cout << std::setw(28) << token.typ() << " |" << token.leksem() << "|\n";
   }
 
   return 0;

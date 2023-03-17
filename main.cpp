@@ -1,7 +1,7 @@
 #include <iostream>
 #include <string>
 #include "leksykon.cpp"
-
+#include <list>
 
 using namespace std;
 
@@ -10,9 +10,10 @@ int main()
 
     string wejscie_konsoli;
     string ostatnia_komenda;
+    extern list<Token::Typ> lista_elementow_w_leksykonie;
 
     //konsola 
-    while(1)
+    while(true)
     {
 
         //sczytywanie wejscia konsoli
@@ -33,7 +34,7 @@ int main()
             char* wejscie_konsoli_char = const_cast<char*>(wejscie_konsoli.c_str());
             leksykowanie(wejscie_konsoli_char);
         }
-        ostatnia_komenda = wejscie_konsoli;     
+        ostatnia_komenda = wejscie_konsoli; 
     }
 
     return 0;
