@@ -30,6 +30,18 @@ int main()
         {
             break;
         }
+        else if (wejscie_konsoli.rfind("pomocy", 5) == 0)
+        {
+            const char* wiadomosc_pomocy =
+            "Prototyp pol++\n"
+            "\n"
+            "Te komendy są zdefiniowane wewnętrznie.  Wpisz 'pomocy' by zobaczyć tę listę.\n"
+            "\n"
+            "echo [tekst]\n"
+            "leksykon [tekst]\n"
+            "wyczysc\n";
+            cout << wiadomosc_pomocy;
+        }
         else if (wejscie_konsoli.rfind("echo ", 4) == 0)
         {
             cout<<wejscie_konsoli.substr(5,wejscie_konsoli.length()) + "\n";
@@ -39,7 +51,7 @@ int main()
             char* wejscie_konsoli_char = const_cast<char*>(wejscie_konsoli.c_str());
             leksykowanie(wejscie_konsoli_char);
         }
-        else if (wejscie_konsoli.rfind("clear", 4) == 0)
+        else if (wejscie_konsoli.rfind("wyczysc", 4) == 0)
         {
             system("clear");
         }
