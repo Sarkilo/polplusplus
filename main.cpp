@@ -2,6 +2,7 @@
 #include <string>
 #include "leksykon.cpp"
 #include <list>
+#include <stdlib.h>
 
 using namespace std;
 
@@ -21,18 +22,30 @@ int main()
         getline(cin, wejscie_konsoli);
 
         //wyjscie
-        if (wejscie_konsoli == "wyjdz")
+        if (wejscie_konsoli == "")
+        {
+            continue;
+        }
+        else if (wejscie_konsoli == "wyjdz")
         {
             break;
         }
-        if (wejscie_konsoli.rfind("echo ", 4) == 0)
+        else if (wejscie_konsoli.rfind("echo ", 4) == 0)
         {
             cout<<wejscie_konsoli.substr(5,wejscie_konsoli.length()) + "\n";
         }
-        if (wejscie_konsoli.rfind("leksykon ", 9) == 0)
+        else if (wejscie_konsoli.rfind("leksykon ", 9) == 0)
         {
             char* wejscie_konsoli_char = const_cast<char*>(wejscie_konsoli.c_str());
             leksykowanie(wejscie_konsoli_char);
+        }
+        else if (wejscie_konsoli.rfind("clear", 4) == 0)
+        {
+            system("clear");
+        }
+        else
+        {
+            cout << "pol++: Nieznana komenda" << "\n"; 
         }
         ostatnia_komenda = wejscie_konsoli; 
     }
